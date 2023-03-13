@@ -16,9 +16,14 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel>
-        <controls:OpenGlControl Name="GlControl" Height="480" Width="800"></controls:OpenGlControl>
-        <Button Content="choose a video" Click="Button_OnClick"></Button>
-    </StackPanel>
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <controls:OpenGlControl Grid.Column="0" Grid.Row="0" Name="GlControl"></controls:OpenGlControl>
+        <Button Content="choose a video" Grid.Column="0" Grid.Row="1" Click="Button_OnClick"></Button>
+    </Grid>
 
 </Window>

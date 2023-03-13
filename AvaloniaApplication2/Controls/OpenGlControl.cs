@@ -22,7 +22,6 @@ public class OpenGlControl : OpenGlControlBase
 
     public OpenGlControl()
     {
-        
         _wakupCallBack = this.wake_up;
         _updateCallBack = this.updateGl;
         var retcode = Mpv.mpv_set_option_string(_mpvHanle, "terminal", "yes");
@@ -91,11 +90,12 @@ public class OpenGlControl : OpenGlControlBase
 
     protected override void OnOpenGlRender(GlInterface gl, int fb)
     {
+        Console.WriteLine($" this control {this.Bounds.Width} {this.Bounds.Height}");
         MpvOpenglFbo fbo = new MpvOpenglFbo()
         {
             fbo = fb,
-            w = (int)this.Width,
-            h = (int)this.Height,
+            w = (int)this.Bounds.Width,
+            h = (int)this.Bounds.Height,
             internal_format = 0
         };
         unsafe
@@ -184,7 +184,8 @@ public class OpenGlControl : OpenGlControlBase
         var code = Mpv.mpv_render_context_create(out _mpvRenderCtx, _mpvHanle, Marshal.UnsafeAddrOfPinnedArrayElement(_params, 0));
         }
 
-        Mpv.mpv_render_context_set_update_callback(_mpvRenderCtx, _updateCallBack, IntPtr.Zero);
+        DynamicMpv.RendeContextSetUpdateCallback(_mpvRenderCtx, _updateCallBack, IntPtr.Zero);
+        //Mpv.mpv_render_context_set_update_callback(_mpvRenderCtx, _updateCallBack, IntPtr.Zero);
         Marshal.FreeHGlobal(paramsPtr);
 
         Marshal.FreeHGlobal(ptrs);
