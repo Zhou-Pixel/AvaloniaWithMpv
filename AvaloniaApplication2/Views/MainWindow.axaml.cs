@@ -20,15 +20,16 @@ namespace AvaloniaApplication2.Views
             //ret = Mpv.mpv_initialize(handle);
             //Console.WriteLine();
 
+            
             var fileDialog = new OpenFileDialog();
             fileDialog.Title = "选择文件";
             var ret = await fileDialog.ShowAsync(this);
             if (ret == null || ret.Length != 1)
             {
-                Console.WriteLine("just choose a video");
+                Console.WriteLine(value: "just choose a video");
                 return;
             }
-            this.GlControl.CommandNode(new List<string>()
+            this.GlControl.CommandNode(args: new List<string>()
             {
                 "loadfile",
                 ret[0]
